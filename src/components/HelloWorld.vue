@@ -31,7 +31,7 @@ const todoTask = ref("");
 const checkedFilters = ref([]);
 // const postTask = ref<PostTask>({ isComplete: false, todoName: "" });
 const sortType = ref(0);
-const isEditable = ref(false);
+// const isEditable = ref(false);
 
 const filterTasks = (): void => {
   if (JSON.stringify(checkedFilters.value) === JSON.stringify(["pending"])) {
@@ -53,16 +53,20 @@ const filterTasks = (): void => {
 const sortList = (): void => {
   if (sortType.value === 0) {
     tasks.value.sort((a, b) => {
-      return a.todoName > b.todoName ? 1 : -1;
+      return a.todoName.toUpperCase() > b.todoName.toUpperCase() ? 1 : -1;
     });
     sortType.value = 1;
   } else {
     tasks.value.sort((a, b) => {
-      return a.todoName < b.todoName ? 1 : -1;
+      return a.todoName.toUpperCase() < b.todoName.toUpperCase() ? 1 : -1;
     });
     sortType.value = 0;
   }
 };
+
+// const editClickHandler = (id) {
+
+// }
 
 const editName = (event, id: string) => {
   const editableTask = selectedTasks.value.find((task) => task._id === id);
@@ -72,7 +76,11 @@ const editName = (event, id: string) => {
   }
 };
 
-const updateList = async (fn: fnToCall, id?: string, currStatus?: boolean): Promise<void> => {
+const updateList = async (
+  fn: fnToCall,
+  id?: string,
+  currStatus?: boolean
+): Promise<void> => {
   switch (fn) {
     case "delete":
       await deleteData(id);
@@ -97,60 +105,72 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h1>Vue Test</h1>
-  <div id="filter">
-    <input
-      type="checkbox"
-      id="completed"
-      value="completed"
-      v-model="checkedFilters"
-      @change="filterTasks"
-    />
-    <label for="completed">completed</label>
+  <h1>Todo App</h1>
+  <section id="main">
+    <base-card style="height: 35px">
+      <div id="filter">
+        <div>
+          <input
+            type="checkbox"
+            id="completed"
+            value="completed"
+            v-model="checkedFilters"
+            @change="filterTasks"
+          />
+          <label for="completed">completed</label>
+        </div>
 
-    <input
-      type="checkbox"
-      id="pending"
-      value="pending"
-      v-model="checkedFilters"
-      @change="filterTasks"
-    />
-    <label for="pending">pending</label>
-  </div>
-  <base-card>
-    <div id="tableContainer">
-      <tbody id="taskTable">
-        <tr>
-          <th id="title" @click="sortList">Title</th>
-          <th>Complete</th>
-          <th>Actions</th>
-        </tr>
-        <tr v-for="task in selectedTasks">
-          <td
-            :contenteditable="task.isEditing"
-            @blur="editName($event, task._id)"
-          >
-          <font-awesome-icon :icon="['fas', 'sort']" />
-            {{ task.todoName }}
-          </td>
-          <td @click="updateList('put', task._id, task.isComplete)" id="status">
-            {{ task.isComplete ? "completed" : "pending" }}
-          </td>
-          <td>
-            <button @click="task.isEditing = true" id="actions">Edit</button
-            ><button @click="updateList('delete', task._id)" id="actions">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </div>
-    <div>
-      <form @submit.prevent="updateList('post')">
-        <label for="task">Task Name: </label>
-        <input type="text" id="task" v-model="todoTask" />
-        <button type="submit" id="submit">Add Task</button>
-      </form>
-    </div>
-  </base-card>
+        <div>
+          <input
+            type="checkbox"
+            id="pending"
+            value="pending"
+            v-model="checkedFilters"
+            @change="filterTasks"
+          />
+          <label for="pending">pending</label>
+        </div>
+      </div>
+    </base-card>
+    <base-card>
+      <div id="tableContainer">
+        <tbody id="taskTable">
+          <tr>
+            <th id="title" @click="sortList">Title&nbsp;<font-awesome-icon icon="fa-solid fa-sort" /></th>
+            <th>Complete</th>
+            <th>Actions</th>
+          </tr>
+          <tr v-for="task in selectedTasks">
+            <td
+              :contenteditable="task.isEditing"
+              @blur="editName($event, task._id)"
+            >
+              {{ task.todoName }}
+            </td>
+            <td
+              @click="updateList('put', task._id, task.isComplete)"
+              id="status"
+            >
+              {{ task.isComplete ? "completed" : "pending" }}
+            </td>
+            <td>
+              <button @click="task.isEditing = true" id="actions">Edit</button
+              ><button @click="updateList('delete', task._id)" id="actions">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </div>
+      <div>
+        <form @submit.prevent="updateList('post')">
+          <label for="task">Task Name: </label>
+          <input type="text" id="task" v-model="todoTask" />
+          <button type="submit" id="submit">Add Task</button>
+        </form>
+      </div>
+    </base-card>
+  </section>
 </template>
 
 <style scoped>
@@ -174,21 +194,31 @@ onMounted(async () => {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #0735cd;
+  background-color: #597ef9;
   color: white;
 }
 #title:hover {
-  background-color: #042aa5;
+  background-color: #3b519b;
   cursor: pointer;
 }
-#status:hover{
+#status:hover {
   background-color: #f4f4f4;
   cursor: pointer;
 }
-#submit{
+#submit {
   margin: 10px;
 }
-#actions{
+#actions {
   margin: 5px;
+}
+#main {
+  display: flex;
+}
+#filter {
+  display: inline-block;
+  justify-content: left;
+}
+#filter div{
+  text-align: left;
 }
 </style>
