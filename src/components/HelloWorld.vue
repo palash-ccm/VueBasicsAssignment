@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import {
   getData,
   deleteData,
@@ -22,14 +22,26 @@ type Task = {
 
 type fnToCall = "delete" | "post" | "put";
 
-
-
 const tasks = ref<Task[]>([]);
 const selectedTasks = ref<Task[]>([]);
 const todoTask = ref("");
 const checkedFilters = ref([]);
 const sortType = ref(0);
+const searchParams = ref("");
 
+const computedTasks = computed(() => {
+  return selectedTasks.value.filter((task) =>
+    task.todoName.includes(searchParams.value)
+  );
+});
+
+// const showEditableTask = (event) => { //trying to focus the editable title
+//   console.log(event)
+// }
+
+const showSearchResults = () => {
+  selectedTasks.value = computedTasks.value;
+};
 
 const filterTasks = (): void => {
   if (JSON.stringify(checkedFilters.value) === JSON.stringify(["pending"])) {
@@ -45,7 +57,7 @@ const filterTasks = (): void => {
   } else {
     selectedTasks.value = tasks.value;
   }
-  console.log("on Filter", selectedTasks.value);
+  // console.log("on Filter", selectedTasks.value);
 };
 
 const sortList = (): void => {
@@ -61,7 +73,6 @@ const sortList = (): void => {
     sortType.value = 0;
   }
 };
-
 
 const editName = (event, id: string) => {
   const editableTask = selectedTasks.value.find((task) => task._id === id);
@@ -102,7 +113,6 @@ onMounted(async () => {
 <template>
   <h1>Todo App</h1>
   <section id="main">
-    <base-card style="height: 35px">
       <div id="filter">
         <div>
           <input
@@ -125,13 +135,20 @@ onMounted(async () => {
           />
           <label for="pending">pending</label>
         </div>
+        <div>
+          <input type="text" id="search" v-model="searchParams" />
+          <label for="search"></label>
+          <button @click="showSearchResults">search</button>
+        </div>
       </div>
-    </base-card>
+
     <base-card>
       <div id="tableContainer">
         <tbody id="taskTable">
           <tr>
-            <th id="title" @click="sortList">Title&nbsp;<font-awesome-icon icon="fa-solid fa-sort" /></th>
+            <th id="title" @click="sortList">
+              Title&nbsp;<font-awesome-icon icon="fa-solid fa-sort" />
+            </th>
             <th>Complete</th>
             <th>Actions</th>
           </tr>
@@ -213,7 +230,7 @@ onMounted(async () => {
   display: inline-block;
   justify-content: left;
 }
-#filter div{
+#filter div {
   text-align: left;
 }
 </style>
