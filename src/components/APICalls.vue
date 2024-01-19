@@ -14,11 +14,8 @@ export const getData = async () => {
 };
 
 export const postData = async (postTask) => {
-  //   postTask.value.todoName = todoTask.value;
-  //   postTask.value.isComplete = false;
-  //   console.log({ postTask });
   await axios.post(API_LINK, postTask);
-  // console.log({response})
+ 
 };
 
 export const toggleIsComplete = async (id, currStatus) => {
@@ -34,9 +31,7 @@ export const toggleIsComplete = async (id, currStatus) => {
 };
 
 export const deleteData = async (id) => {
-  //   console.log("deleting now...")
   await axios.delete(`${API_LINK}/${id}`);
   console.log("deleted");
-  //   getData();
 };
 </script>

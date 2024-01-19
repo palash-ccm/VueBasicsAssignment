@@ -20,18 +20,16 @@ type Task = {
   isEditing?: boolean;
 };
 
-// const fnList = ['delete', 'post', 'put']
 type fnToCall = "delete" | "post" | "put";
 
-// type PostTask = Omit<Task, "createdAt" | "updatedAt" | "_v" | "_id">;
+
 
 const tasks = ref<Task[]>([]);
 const selectedTasks = ref<Task[]>([]);
 const todoTask = ref("");
 const checkedFilters = ref([]);
-// const postTask = ref<PostTask>({ isComplete: false, todoName: "" });
 const sortType = ref(0);
-// const isEditable = ref(false);
+
 
 const filterTasks = (): void => {
   if (JSON.stringify(checkedFilters.value) === JSON.stringify(["pending"])) {
@@ -64,9 +62,6 @@ const sortList = (): void => {
   }
 };
 
-// const editClickHandler = (id) {
-
-// }
 
 const editName = (event, id: string) => {
   const editableTask = selectedTasks.value.find((task) => task._id === id);
