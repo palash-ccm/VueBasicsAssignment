@@ -3,19 +3,19 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { postData } from "./utils/ApiCalls.ts";
-import {rules} from './utils/Validation.ts'
+import { rules } from "./utils/Validation.ts";
 
 const todoName = ref("");
 const router = useRouter();
-const isLoading = ref(false)
+const isLoading = ref(false);
 
-const $v = useVuelidate(rules, { todoName })
+const $v = useVuelidate(rules, { todoName });
 
 const storeTask = async () => {
   if (!$v.value.$invalid) {
-    isLoading.value = true
-   await postData({ todoName: todoName.value, isComplete: false });
-   isLoading.value = false
+    isLoading.value = true;
+    await postData({ todoName: todoName.value, isComplete: false });
+    isLoading.value = false;
     todoName.value = "";
     router.push("/");
   } else {
@@ -25,19 +25,25 @@ const storeTask = async () => {
 </script>
 
 <template>
-  <div>
-    <router-link to="/">See all Tasks</router-link>
+  <div id="links"><router-link to="/">See all Tasks</router-link></div>
+  <div id="card">
     <div v-if="isLoading" id="loader">
-    <dialog open>
-      <div>
-        <h3>Loading...</h3>
-        <font-awesome-icon icon="fa-solid fa-spinner" />
-      </div>
-    </dialog>
-  </div>
+      <dialog open>
+        <div>
+          <h3>Loading...</h3>
+          <font-awesome-icon icon="fa-solid fa-spinner" />
+        </div>
+      </dialog>
+    </div>
+    <h3>Add a task</h3>
     <form @submit.prevent="storeTask">
       <label for="task">Task name: </label>
-      <input type="text" id="task" @blur="$v.todoName.$touch" v-model="todoName" />
+      <input
+        type="text"
+        id="task"
+        @blur="$v.todoName.$touch"
+        v-model="todoName"
+      />
       <p v-if="$v.todoName.$error" style="color: red">
         Please enter a valid value
       </p>

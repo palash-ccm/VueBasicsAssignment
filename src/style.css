@@ -14,11 +14,12 @@
 }
 #card {
   border: 1px solid rgb(205, 207, 207) 21;
-  box-shadow: 0 4px 8px rgba(102, 102, 102, 0.1);
+  box-shadow: 0 4px 8px #6fb3b8;
+  background-color: #f6f6f2 ;
   border-radius: 10px;
   padding: 25px;
   margin: 10px;
-  background-color: #969696 ;
+  
 }
 a {
   font-weight: 500;
@@ -35,13 +36,14 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #242424;
-  color: white;
+  background-color: #f6f6f2;
+  color: #388087;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin: 2px;
 }
 
 button {
@@ -51,7 +53,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: sans-serif;
-  background-color: #1a1a1a;
+  background-color: #badfe7;
   cursor: pointer;
   transition: border-color 0.25s;
   margin: 5px;
@@ -70,20 +72,21 @@ button:focus-visible {
   text-align: center;
 }
 td {
-  border: 1px solid black;
+  border-bottom: 1px solid #6fb3b8;
   padding: 8px;
-  background-color: #242424;
+  background-color: #f6f6f2;
 }
 
 td #task-name{
   font-size: 1em;
+  text-align: left;
 }
 
 th {
   border-radius: 10px 10px 0 0;
-  border: 1px solid black;
+  border-bottom: 1px solid #6fb3b8;
   padding: 8px;
-  background-color: #676767;
+  background-color: #388087;
   font-size: 1.2em;
 }
 
@@ -94,14 +97,19 @@ th {
   color: white;
 }
 #title:hover {
-  background-color: #515050;
+  background-color: #4bacb4;
   cursor: pointer;
 }
 #status:hover {
-  background-color: #3a3a3a;
+  background-color: #cbcbc7;
   cursor: pointer;
 }
-
+.active{
+  color: green
+}
+.notActive{
+  color:red
+}
 #actions {
   margin: 5px;
 }
@@ -115,11 +123,11 @@ th {
 #filter {
   display: inline-block;
   border: 1px solid rgb(205, 207, 207) 21;
-  box-shadow: 0 4px 8px rgba(102, 102, 102, 0.1);
+  box-shadow: 0 4px 8px #6fb3b8;
+  background-color: #f6f6f2 ;
   border-radius: 10px;
   padding: 25px;
   margin: 10px;
-  background-color: #969696 ;
   height: 200px;
 }
 #filter div {
@@ -128,21 +136,29 @@ th {
 #filter section{
   margin-bottom: 10px;
 }
-#loader div{
-  border-radius: 5px;
-  font-size: 2rem;
-  padding: 5px;
-  background-color: black;
-  color: white;
-}
+
 #loader h3{
   margin: 2px;
+}
+dialog{
+  font-size: 2rem;
+  color: #388087;
+  border: 1px solid white;
+  box-shadow: 0 4px 8px #6fb3b8;
+  background-color: #f6f6f2 ;
+  border-radius: 10px;
+
 }
 #editable-task:focus
 #editable-task:focus-visible{
   border-color: white;
 }
-@media (prefers-color-scheme: light) {
+#links{
+  margin: 15px;
+  font-size: 1.2rem;
+}
+
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -153,4 +169,4 @@ th {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

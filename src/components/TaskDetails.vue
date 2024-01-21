@@ -58,7 +58,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <router-link to="/">See all Tasks</router-link>
+  <div id="links"><router-link to="/">See all Tasks</router-link></div>
+  
   <div v-if="isLoading" id="loader">
     <dialog open>
       <div>
@@ -67,13 +68,13 @@ onMounted(async () => {
       </div>
     </dialog>
   </div>
-  <div>
+  <div id="card">
     <h1>Task Details</h1>
     <h3 :contenteditable="isEditing" id="editable-task">
       {{ taskDetail.todoName }}
     </h3>
     <button v-if="isEditing" @click="updateTask">Update Task</button>
-    <h4>
+    <h4 :class="{active: taskDetail.isComplete, notActive: taskDetail.isComplete === false}">
       {{
         taskDetail.isComplete ? "Task has been completed" : "Task is incomplete"
       }}

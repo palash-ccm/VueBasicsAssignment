@@ -24,7 +24,7 @@ const router = useRouter();
 
 const computedTasks = computed(() => {
   return selectedTasks.value.filter((task) =>
-    task.todoName.includes(searchParams.value)
+    task.todoName.toLowerCase().includes(searchParams.value.toLowerCase())
   );
 });
 
@@ -115,7 +115,7 @@ onMounted(async () => {
       <section>
         <input type="text" id="search" v-model="searchParams" />
         <label for="search"></label>
-        <button @click="showSearchResults">search</button>
+        <button @click="showSearchResults">Search</button>
       </section>
       <section id="check-box">
         <div>
@@ -152,15 +152,15 @@ onMounted(async () => {
         <th id="title" @click="sortList">
           Title&nbsp;<font-awesome-icon icon="fa-solid fa-sort" />
         </th>
-        <th>Complete</th>
+        <th>Status</th>
         <th>Actions</th>
       </tr>
       <tr v-for="task in selectedTasks">
         <td id="task-name">
           {{ task.todoName }}
         </td>
-        <td @click="updateList('PUT', task._id, task.isComplete)" id="status">
-          {{ task.isComplete ? "completed" : "pending" }}
+        <td @click="updateList('PUT', task._id, task.isComplete)" id="status" :class="{active: task.isComplete, notActive: task.isComplete === false}">
+          {{ task.isComplete ? "Completed" : "Pending" }}
         </td>
         <td>
           <button @click="redirectToTaskDetails(task._id)" id="actions">
