@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,7 +12,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+#card {
+  border: 1px solid rgb(205, 207, 207) 21;
+  box-shadow: 0 4px 8px rgba(102, 102, 102, 0.1);
+  border-radius: 10px;
+  padding: 25px;
+  margin: 10px;
+  background-color: #969696 ;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -28,6 +35,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #242424;
+  color: white;
 }
 
 h1 {
@@ -41,10 +50,11 @@ button {
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
+  font-family: sans-serif;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  margin: 5px;
 }
 button:hover {
   border-color: #646cff;
@@ -54,17 +64,84 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.card {
-  padding: 2em;
-}
-
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
+td {
+  border: 1px solid black;
+  padding: 8px;
+  background-color: #242424;
+}
 
+td #task-name{
+  font-size: 1em;
+}
+
+th {
+  border-radius: 10px 10px 0 0;
+  border: 1px solid black;
+  padding: 8px;
+  background-color: #676767;
+  font-size: 1.2em;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  color: white;
+}
+#title:hover {
+  background-color: #515050;
+  cursor: pointer;
+}
+#status:hover {
+  background-color: #3a3a3a;
+  cursor: pointer;
+}
+
+#actions {
+  margin: 5px;
+}
+#main {
+  display: flex;
+}
+#check-box{
+  display: flex;
+  justify-content: center;
+}
+#filter {
+  display: inline-block;
+  border: 1px solid rgb(205, 207, 207) 21;
+  box-shadow: 0 4px 8px rgba(102, 102, 102, 0.1);
+  border-radius: 10px;
+  padding: 25px;
+  margin: 10px;
+  background-color: #969696 ;
+  height: 200px;
+}
+#filter div {
+  text-align: left;
+}
+#filter section{
+  margin-bottom: 10px;
+}
+#loader div{
+  border-radius: 5px;
+  font-size: 2rem;
+  padding: 5px;
+  background-color: black;
+  color: white;
+}
+#loader h3{
+  margin: 2px;
+}
+#editable-task:focus
+#editable-task:focus-visible{
+  border-color: white;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
