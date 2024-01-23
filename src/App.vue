@@ -1,12 +1,10 @@
-<script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <router-view v-slot="{ Component }">
-    <component :is="Component" />
-  </router-view>
-  <!-- <HelloWorld /> -->
+  
+  <HelloWorld />
 </template>
 
 <style scoped>
